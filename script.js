@@ -16,19 +16,36 @@ async function fetchRandomNews(){
     }
 }
 
-function displayPosts(articles){
+function displayArticles(articles){
     postContainer.innerHTML = "";
     articles.forEach(article => {
+        const postCard = document.createElement("div");
+        postCard.classList.add("postCard");
+
+        const img = document.createElement("img");
+        img.src = article.urlToImage;
+        img.alt = article.title;
         
+        const title = document.createElement("h2");
+        title.textContent = article.title;
+
+        const description = document.createElement("p");
+        description.textContent = article.description;
+
+        postCard.appendChild(img);
+        postCard.appendChild(title);
+        postCard.appendChild(description);
+
+        postContainer.appendChild(postCard);
     });
 }
 
-(async ()=>{
+(async () => {
     try {
       const articles = await fetchRandomNews();
       console.log("Articles: ", articles);
-      displayPosts(articles);
+      displayArticles(articles);
     } catch (error) {
         console.error("Error fetching random news", error);
     }
-})
+})();
