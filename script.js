@@ -4,7 +4,7 @@ const postContainer = document.getElementById("postContainer");
 
 async function fetchRandomNews(){
     try {
-        const apiUrl = `https://newsapi.org/v2/top-headlines?country=us&pageSize=10&apiKey=${apiKey}`;
+        const apiUrl = `https://newsapi.org/v2/top-headlines?country=us&pageSize=15&apiKey=${apiKey}`;
         const response = await fetch(apiUrl);
         const data = await response.json();
         console.log("Response data: ", data);
@@ -27,10 +27,12 @@ function displayArticles(articles){
         img.alt = article.title;
         
         const title = document.createElement("h2");
-        title.textContent = article.title;
+        const truncatedTitle = article.title.length > 30 ? article.title.slice(0,30)+ "..." : article.title;
+        title.textContent = truncatedTitle;
 
         const description = document.createElement("p");
-        description.textContent = article.description;
+        const truncatedDescr = article.description.length > 115 ? article.description.slice(0,150)+ "..." : article.description;
+        description.textContent = truncatedDescr;
 
         postCard.appendChild(img);
         postCard.appendChild(title);
